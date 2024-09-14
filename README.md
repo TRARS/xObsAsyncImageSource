@@ -1,3 +1,8 @@
+### 切图测试
+<img src="xObsAsyncImageSource.ImageSelector/スクリーンショット/ImageSelector.png" width="100%" />
+
+<details><summary><strong>Unmodified README from xObsAsyncImageSource</strong></summary>
+
 # xObsAsyncImageSource
 OBS plugin providing an image source that loads images asynchronously (causing a lot less lag on load).
 
@@ -152,3 +157,5 @@ Refer to the [building instructions for my example plugin](https://github.com/Yo
 
 ## Credits
 Many thanks to [kostya9](https://github.com/kostya9) for laying the groundwork of C# OBS Studio plugin creation, without him this plugin (and hopefully many more C# plugins following in the future) wouldn't exist. Read about his ventures into this area in his blog posts [here](https://sharovarskyi.com/blog/posts/dotnet-obs-plugin-with-nativeaot/) and [here](https://sharovarskyi.com/blog/posts/clangsharp-dotnet-interop-bindings/). 
+
+</details>

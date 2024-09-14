@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <StripSymbols>true</StripSymbols>
+    <PublishAot>true</PublishAot>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\xObsAsyncImageSource.Helper\xObsAsyncImageSource.Helper.csproj" />
+  </ItemGroup>
+  
+</Project>

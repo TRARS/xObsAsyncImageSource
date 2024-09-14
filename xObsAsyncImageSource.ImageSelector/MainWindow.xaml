@@ -1,0 +1,99 @@
+﻿<Window x:Class="xObsAsyncImageSource.ImageSelector.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:xObsAsyncImageSource.ImageSelector" 
+        xmlns:vm="clr-namespace:xObsAsyncImageSource.ImageSelector.ViewModels" 
+        xmlns:titlebarex="clr-namespace:xObsAsyncImageSource.ImageSelector.Views.TitleBarEx"
+        xmlns:rainbowlineex="clr-namespace:xObsAsyncImageSource.ImageSelector.Views.RainbowLineEx"
+        xmlns:clientex="clr-namespace:xObsAsyncImageSource.ImageSelector.Views.ClientEx"
+        mc:Ignorable="d"
+        SnapsToDevicePixels="True" 
+        WindowStartupLocation="Manual" 
+        Background="Transparent"
+        
+        TextOptions.TextFormattingMode="Display"
+        TextOptions.TextRenderingMode="ClearType"
+        UseLayoutRounding="true" 
+        Topmost="True" 
+        
+        AllowsTransparency="True"
+        WindowStyle="None" 
+        ResizeMode="CanMinimize"
+        
+        HorizontalAlignment="Left" 
+        ShowInTaskbar="True" 
+        
+        Title="MainWindow"
+        
+        MinWidth="480"
+        MinHeight="272" 
+        MaxWidth="720"
+        MaxHeight="480"
+        
+        SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <ResourceDictionary>
+            <local:RectConverter x:Key="RectConverter"/>
+            <local:BorderBrushConverter x:Key="BorderBrushConverter"/>
+
+            <DataTemplate DataType="{x:Type vm:uTitleBarVM}">
+                <titlebarex:uTitleBar/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:uRainbowLineVM}">
+                <rainbowlineex:uRainbowLine/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:uClientVM}">
+                <clientex:uClient/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <local:MainWindow_viewmodel/>
+    </Window.DataContext>
+    
+    <Grid>
+        <Border x:Name="PART_Border" BorderThickness="1" CornerRadius="5"
+                Margin="0" Panel.ZIndex="2"
+                BorderBrush="{Binding IsActive, 
+                                      RelativeSource={RelativeSource AncestorType={x:Type Window}}, 
+                                      Converter={StaticResource BorderBrushConverter}}"
+                d:BorderBrush="AliceBlue">
+        </Border>
+
+        <Border x:Name="PART_Background" BorderThickness="0" Background="#FF1F2021" CornerRadius="7"
+                Margin="0" Panel.ZIndex="0"/>
+        
+        <Grid Margin="1" Panel.ZIndex="1">
+            <Grid.Clip>
+                <RectangleGeometry RadiusX="4.5" RadiusY="4.5">
+                    <RectangleGeometry.Rect>
+                        <MultiBinding Converter="{StaticResource RectConverter}">
+                            <Binding Path="ActualWidth" ElementName="PART_Border"/>
+                            <Binding Path="ActualHeight" ElementName="PART_Border"/>
+                            <Binding Path="BorderThickness" ElementName="PART_Border"/>
+                        </MultiBinding>
+                    </RectangleGeometry.Rect>
+                </RectangleGeometry>
+            </Grid.Clip>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--标题栏-->
+            <ContentControl Grid.Row="0" Content="{Binding SubViewModelList[0]}" Visibility="{Binding SubViewModelList[0].Visibility}"
+                            x:Name="Chrome"/>
+
+            <!--分界线-->
+            <ContentControl Grid.Row="1" Content="{Binding SubViewModelList[1]}" Visibility="{Binding Visibility, ElementName=Chrome}"/>
+
+            <!--客户区-->
+            <ContentControl Grid.Row="2" Content="{Binding SubViewModelList[2]}"/>
+            
+        </Grid>
+    </Grid>
+</Window>

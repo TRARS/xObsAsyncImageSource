@@ -1,0 +1,14 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:xObsAsyncImageSource.ImageSelector">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/xObsAsyncImageSource.ImageSelector;component/Controls/ImagePreviewerEx/cImagePreviewer_style.xaml"/>
+        <ResourceDictionary Source="/xObsAsyncImageSource.ImageSelector;component/Controls/ListBoxEx/cListBox_style.xaml"/>
+        <ResourceDictionary Source="/xObsAsyncImageSource.ImageSelector;component/Controls/NormalButtonEx/cNormalButton_style.xaml"/>
+        <ResourceDictionary Source="/xObsAsyncImageSource.ImageSelector;component/Controls/TextBoxEx/cTextBox_style.xaml"/>
+        <ResourceDictionary Source="/xObsAsyncImageSource.ImageSelector;component/Controls/TitleBarButtonEx/cTitleBarButton_style.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
+</ResourceDictionary>

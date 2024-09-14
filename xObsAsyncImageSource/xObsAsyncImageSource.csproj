@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <StripSymbols>true</StripSymbols>
+    <PublishAot>true</PublishAot>
+    <Authors>https://github.com/YorVeX</Authors>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NetObsBindings" Version="30.1.2" />
+    <ProjectReference Include="..\xObsAsyncImageSource.Helper\xObsAsyncImageSource.Helper.csproj" />
+    <ProjectReference Include="..\xObsAsyncImageSource.SocketUtils\xObsAsyncImageSource.SocketUtils.csproj" />
+  </ItemGroup>
+
+</Project>

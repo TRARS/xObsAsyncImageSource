@@ -1,0 +1,86 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                    xmlns:local="clr-namespace:xObsAsyncImageSource.ImageSelector.Controls.ListBoxEx">
+
+    <Thickness x:Key="ItemsPresenterMargin">2,2,2,0</Thickness>
+    <Thickness x:Key="ItemContainerMargin">0,0,0,2</Thickness>
+    
+    <Style TargetType="{x:Type local:cListBox}" BasedOn="{StaticResource {x:Type ListBox}}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:cListBox}">
+                    <Border CornerRadius="1.5"
+                            BorderThickness="1"
+                            BorderBrush="#6B696969"
+                            Background="#20808080">
+                        <ItemsPresenter Margin="{StaticResource ItemsPresenterMargin}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid >
+                        <Rectangle Fill="Transparent" Width="NaN" Height="NaN" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                        <TextBlock x:Name="item"
+                                   Margin="4,0,4,1" 
+                                   VerticalAlignment="Center"
+                                   Text="{Binding}" 
+                                   TextTrimming="WordEllipsis"
+                                   Foreground="White"
+                                   ToolTipService.InitialShowDelay="256">
+                        </TextBlock>
+                    </Grid>
+
+                    <DataTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Black" TargetName="item"/>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="true">
+                            <DataTrigger.Setters>
+                                <Setter Property="Foreground" Value="Black" TargetName="item"/>
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="Background" Value="#66316F" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <Border>
+                                    <Grid Margin="{StaticResource ItemContainerMargin}">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="1"/>
+                                        <ContentPresenter VerticalAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Trigger.Setters>
+                                            <Setter Property="Background" Value="LightGray"/>
+                                        </Trigger.Setters>
+                                    </Trigger>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true">
+                                        <DataTrigger.Setters>
+                                            <Setter Property="Background" Value="White"/>
+                                        </DataTrigger.Setters>
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

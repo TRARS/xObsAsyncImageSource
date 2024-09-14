@@ -1,0 +1,110 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                    xmlns:local="clr-namespace:xObsAsyncImageSource.ImageSelector.Controls.ImagePreviewerEx">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/xObsAsyncImageSource.ImageSelector;component/ControlStyles/ScrollViewerEx/cScrollViewer_style.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <local:cImagePreviewer_converter_borderbrush x:Key="cImagePreviewer_converter_borderbrush"/>
+    <local:cImagePreviewer_converter_borderthickness x:Key="cImagePreviewer_converter_borderthickness"/>
+    <local:cImagePreviewer_converter_imagesource x:Key="cImagePreviewer_converter_imagesource"/>
+
+    <Style TargetType="ListViewItem" x:Key="ImageCard">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDown">
+                                <i:ChangePropertyAction PropertyName="Opacity" Value="0.5"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseUp">
+                                <i:ChangePropertyAction PropertyName="Opacity" Value="1.0"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseLeave">
+                                <i:ChangePropertyAction PropertyName="Opacity" Value="1.0"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        
+                        <Border x:Name="ImageContainer"
+                                Width="{Binding ItemSize, 
+                                                RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                                Height="{Binding Width,
+                                                 RelativeSource={RelativeSource Self}}" 
+                                BorderThickness="{Binding ItemBorderEnabled, 
+                                                          RelativeSource={RelativeSource FindAncestor, AncestorType=ListView},
+                                                          Converter={StaticResource cImagePreviewer_converter_borderthickness}}"
+                                CornerRadius="2.5"
+                                Grid.Row="0">
+                            <Border.BorderBrush>
+                                <MultiBinding Converter="{StaticResource cImagePreviewer_converter_borderbrush}">
+                                    <Binding Path="ItemBorderEnabled" 
+                                             RelativeSource="{RelativeSource FindAncestor, AncestorType=ListView}"/>
+                                    <Binding Path="ItemBorderColor" 
+                                             RelativeSource="{RelativeSource FindAncestor, AncestorType=ListView}"/>
+                                </MultiBinding>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding ImageSource,
+                                                                  Converter={StaticResource cImagePreviewer_converter_imagesource}}"/>
+                            </Border.Background>
+
+                            <!--<CheckBox IsChecked="{Binding IsChecked}"
+                                      Visibility="{Binding ItemCheckerEnabled, 
+                                                           RelativeSource={RelativeSource FindAncestor, AncestorType=ListView},
+                                                           Converter={StaticResource BooleanToVisibilityConverter}}"/>-->
+                        </Border>
+
+                        <TextBlock x:Name="ImageName"
+                                   Text="{Binding ImageName}" 
+                                   Foreground="{Binding ItemTextColor, 
+                                                        RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                                   Grid.Row="1"/>
+
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                            <Setter Property="Foreground" Value="Yellow" TargetName="ImageName"/>
+                        </DataTrigger>
+                        
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="Red" TargetName="ImageContainer"/>
+                            <Setter Property="Foreground" Value="Red" TargetName="ImageName"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:cImagePreviewer}">
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:cImagePreviewer}">
+                    <Border Background="{Binding BackgroundColor, RelativeSource={RelativeSource TemplatedParent}}"
+                            CornerRadius="1.5"
+                            BorderThickness="1"
+                            BorderBrush="#6B696969">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                                      Style="{StaticResource cScrollViewerStyle}">
+                            <WrapPanel IsItemsHost="True" Orientation="Horizontal"/>
+                        </ScrollViewer>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource ImageCard}"/>
+    </Style>
+    
+</ResourceDictionary>
